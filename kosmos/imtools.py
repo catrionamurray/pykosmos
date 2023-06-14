@@ -42,7 +42,7 @@ def biascombine(bfiles):
 
 def proc(file, bias=None, flat=None, dark=None,
          trim=True, ilum=None, Saxis=0, Waxis=1,
-         EXPTIME='EXPTIME', DATASEC='DATASEC',
+         EXPTIME='EXPTIME', DATASEC='DATASEC', datasection=None,
          CR=False, GAIN='GAIN', READNOISE='RDNOISE', CRsigclip=4.5):
     """
     Semi-generalized function to read a FITS file in, divide by exposure
@@ -123,7 +123,10 @@ def proc(file, bias=None, flat=None, dark=None,
 
     # trim off bias section
     if trim:
-        img = trim_image(img, fits_section=img.header[DATASEC])
+        if datasection is None:
+            img = trim_image(img, fits_section=img.header[DATASEC])
+        else:
+            img = trim_image(img, fits_section=datasection)
 
     # old DIS default was Saxis=0, Waxis=1, shape = (1028,2048)
     # KOSMOS is swapped, shape = (4096, 2148)

@@ -141,7 +141,7 @@ def flatcombine(ffiles, bias=None, trim=True, normframe=True,
                 illumcor=True, threshold=0.9,
                 responsecor=True, smooth=False, npix=11,
                 Saxis=0, Waxis=1,
-                EXPTIME='EXPTIME', DATASEC='DATASEC'  # header keywords
+                EXPTIME='EXPTIME', DATASEC='DATASEC', datasection="[1:1024,1:2048]"  # header keywords
                 ):
     """
     A general-purpose wrapper function to create a science-ready
@@ -209,7 +209,7 @@ def flatcombine(ffiles, bias=None, trim=True, normframe=True,
     flist = []
     # loop over all flat frames
     for k in range(len(ffiles)):
-        img = proc(ffiles[k], bias=bias, EXPTIME=EXPTIME, DATASEC=DATASEC, trim=trim)
+        img = proc(ffiles[k], bias=bias, EXPTIME=EXPTIME, DATASEC=DATASEC, datasection=datasection, trim=trim)
 
         # normalize each flat frame by its median
         # ISSUE: this might not be needed, since each frame is in flux units?
